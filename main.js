@@ -18,6 +18,30 @@ $(document).ready(function(){
         nextPrevFoto('prev');
     });
 
+    //NAVIGAZIONE TRAMITE FRECCETTE
+    $(document).keydown(function(event){
+        console.log(event);
+        console.log(event.keyCode); //CI AIUTA A CAPIRE IL CODICE CHE CORRISPONDE AL TASTO PREMUTO
+
+        //SE PREMIAMO LA FRECCIA SINISTRA, RICOPIANDO LA FUNZIONE CREATA IN PRECEDENZA
+        //TORNEREMO INDIETRO DI UNA FOTO
+        if(event.keyCode == 37){
+            nextPrevFoto('prev');
+
+        //SE PREMIAMO LA FRECCIA DESTRA, RICOPIANDO LA FUNZIONE CREATA IN PRECEDENZA
+        //ANDREMO AVANTI DI UNA FOTO
+        } else if(event.keyCode == 39){
+            nextPrevFoto('next');
+        }
+    });
+
+
+
+
+
+
+
+
     //FINE LETTURA DOCUMENT
 });
 
@@ -30,5 +54,41 @@ $(document).ready(function(){
  //FUNZIONE PER NAVIGARE TRA LE FOTO
  function nextPrevFoto(direzione) {
     console.log(direzione);
+    var activeImg = $('.images img.active');
+    var activeCrcl = $('.nav i.active');
+
+
+    //RESET
+    activeImg.removeClass('active');
+    activeCrcl.removeClass('active');
+
+    //NEXT
+    if(direzione === 'next') {
+
+        //SE RAGGIUNGIAMO L'ULTIMA FOTO/CERCHIO, RITORNIAMO AL PRIMO
+        if(activeImg.hasClass('last')){
+            $('.images img.first').addClass('active');
+            $('.nav i.first').addClass('active');
+        }
+
+        //SE CLICCHIAMO LA FRECCIA, PASSA ALLA PROSSIMA FOTO/CERCHIO
+        activeImg.next('img').addClass('active');
+        activeCrcl.next('i').addClass('active');
+    }
+    
+    //PREV
+    else if (direzione === 'prev') {
+
+        //SE RAGGIUNGIAMO LA PRIMA FOTO/CERCHIO, RITORNIAMO ALL'ULTIMA
+        if(activeImg.hasClass('first')){
+            $('.images img.last').addClass('active');
+            $('.nav i.last').addClass('active');
+        }
+
+        //SE CLICCHIAMO LA FRECCIA SINISTRA, TORNA INDIETRO DI FOTO/CERCHIO
+        activeImg.prev('img').addClass('active');
+        activeCrcl.prev('i').addClass('active');
+    }
+
  }
 
