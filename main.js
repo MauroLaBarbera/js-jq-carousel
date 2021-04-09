@@ -4,6 +4,7 @@ $(document).ready(function(){
     //REFERENZE
     var nextBtn = $('.next');
     var prevBtn = $('.prev');
+    var navDots = $('.nav i');
 
     /**
      * FUNZIONE PER NAVIGARE TRA LE FOTO
@@ -35,6 +36,11 @@ $(document).ready(function(){
         }
     });
 
+
+    //DOT NAVIGATION 
+    navDots.click(function(){
+        nextPrevFoto( $(this) );
+    })
 
 
 
@@ -85,9 +91,16 @@ $(document).ready(function(){
             $('.nav i.last').addClass('active');
         }
 
-        //SE CLICCHIAMO LA FRECCIA SINISTRA, TORNA INDIETRO DI FOTO/CERCHIO
+        else {//SE CLICCHIAMO LA FRECCIA SINISTRA, TORNA INDIETRO DI FOTO/CERCHIO
         activeImg.prev('img').addClass('active');
-        activeCrcl.prev('i').addClass('active');
+        activeCrcl.prev('i').addClass('active');}
+    } else {
+        //direzione -> $(this) -> referenza elemento che genera l'evento
+        direzione.addClass('active');
+
+        console.log(direzione.index());
+        var pos = direzione.index();
+        $('.images img').eq(pos).addClass('active');
     }
 
  }
